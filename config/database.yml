@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: movers_api_production
   username: movers_api
   password: <%= ENV["MOVERS_API_DATABASE_PASSWORD"] %>
