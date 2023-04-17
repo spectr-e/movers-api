@@ -1,0 +1,2 @@
+class ApartmentSize < ApplicationRecord
+end
