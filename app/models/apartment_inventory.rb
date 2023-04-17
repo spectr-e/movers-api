@@ -1,0 +1,2 @@
+class ApartmentInventory < ApplicationRecord
+end

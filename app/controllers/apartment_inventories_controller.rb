@@ -1,0 +1,2 @@
+class ApartmentInventoriesController < ApplicationController
+end
