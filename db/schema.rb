@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_17_100954) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_17_151243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "apartment_inventories", force: :cascade do |t|
+    t.integer "apartment_size_id"
+    t.integer "inventory_id"
+    t.string "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "apartment_sizes", force: :cascade do |t|
     t.string "size"
@@ -23,6 +31,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_17_100954) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "boxes", force: :cascade do |t|
+    t.string "range"
+    t.integer "cost_to_move_boxes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+  
   create_table "inventories", force: :cascade do |t|
     t.string "name"
     
