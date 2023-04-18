@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  size: MyString
+  description: MyText
+  labour: 1
+  labour_cost: 1
+
+two:
+  size: MyString
+  description: MyText
+  labour: 1
+  labour_cost: 1
