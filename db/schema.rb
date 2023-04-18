@@ -25,6 +25,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_17_100954) do
 
   create_table "inventories", force: :cascade do |t|
     t.string "name"
+    
+  create_table "bookings", force: :cascade do |t|
+    t.string "user_id"
+    t.string "mover_id"
+    t.string "apartment_size_id"
+    t.string "rating_id"
+    t.string "box_id"
+    t.string "pickup_address"
+    t.string "destination_address"
+    t.integer "distance"
+    t.date "book_date"
+    t.time "book_time"
+    t.integer "quotation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
