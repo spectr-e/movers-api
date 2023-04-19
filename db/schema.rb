@@ -10,21 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_18_162053) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_18_163940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "movers", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "logo"
-    t.string "address"
-    t.text "description"
-    t.text "services_offered"
-    t.string "availability"
-    t.boolean "deposit_req"
-    t.boolean "full_packaging"
-    t.integer "rate_per_kilometer"
 
   create_table "apartment_inventories", force: :cascade do |t|
     t.integer "apartment_size_id"
@@ -43,29 +31,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_18_162053) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "primary_email"
-    t.string "secondary_email"
-    t.string "primary_phone_number"
-    t.string "secondary_phone_number"
-    t.string "image"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["primary_email"], name: "index_users_on_primary_email", unique: true
-    t.index ["primary_phone_number"], name: "index_users_on_primary_phone_number", unique: true
-
-  create_table "boxes", force: :cascade do |t|
-    t.string "range"
-    t.integer "cost_to_move_boxes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-  
-  create_table "inventories", force: :cascade do |t|
-    t.string "name"
-    
   create_table "bookings", force: :cascade do |t|
     t.string "user_id"
     t.string "mover_id"
@@ -80,6 +45,55 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_18_162053) do
     t.integer "quotation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "boxes", force: :cascade do |t|
+    t.string "range"
+    t.integer "cost_to_move_boxes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "movers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "logo"
+    t.string "address"
+    t.text "description"
+    t.text "services_offered"
+    t.string "availability"
+    t.boolean "deposit_req"
+    t.boolean "full_packaging"
+    t.integer "rate_per_kilometer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "primary_email"
+    t.string "secondary_email"
+    t.string "primary_phone_number"
+    t.string "secondary_phone_number"
+    t.string "image"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["primary_email"], name: "index_users_on_primary_email", unique: true
+    t.index ["primary_phone_number"], name: "index_users_on_primary_phone_number", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end
