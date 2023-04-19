@@ -9,16 +9,30 @@ class RatingsController < ApplicationController
     render json: rating
   end
 
-  def create
-    rating = Rating.new(rating_params)
+  def current_user
+    
+  end 
 
+  def create
+    booking = Booking.find_by(id: rating_params[:booking_id])
+  
+    if booking.nil?
+      render json: { error: 'Booking not found' }, status: :not_found
+      return
+    end
+  
+    rating = Rating.new(rating_params)
+    rating.user = current_user # assuming current_user is available and authenticated
+    rating.booking = booking
+  
     if rating.save
       render json: rating, status: :created
     else
-      render json: { errors: "unprocessebale entity" }, status: :unprocessable_entity
+      render json: { error: rating.errors.full_messages }, status: :unprocessable_entity
     end
   end
-
+  
+  
   def update
     rating = Rating.find(params[:id])
 
