@@ -1,10 +1,14 @@
+previewsEnabled: true
+previewsExpireAfterDays: 3
 databases:
   - name: postgres
+    previewPlan: free
     ipAllowList: []
 
 services:
   - type: web
     name: rails
+    previewPlan: free
     env: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
