@@ -1,10 +1,10 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :update, :destroy]
 
-  def index 
+  def index
     bookings = Booking.all
     render json: bookings
-  end 
+  end
 
   def create
     booking = Booking.new(booking_params)
