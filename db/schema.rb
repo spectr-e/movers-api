@@ -25,6 +25,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_115633) do
     t.boolean "deposit_req"
     t.boolean "full_packaging"
     t.integer "rate_per_kilometer"
+
+  create_table "apartment_inventories", force: :cascade do |t|
+    t.integer "apartment_size_id"
+    t.integer "inventory_id"
+    t.string "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "apartment_sizes", force: :cascade do |t|
+    t.string "size"
+    t.text "description"
+    t.integer "labour"
+    t.integer "labour_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
