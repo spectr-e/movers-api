@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_18_163940) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_115633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,6 +30,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_18_163940) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "primary_phone_number"
+    t.string "secondary_phone_number"
+    t.string "image"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "email"
+    t.index ["primary_phone_number"], name: "index_users_on_primary_phone_number", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "bookings", force: :cascade do |t|
     t.string "user_id"
@@ -75,6 +91,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_18_163940) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.integer "booking_id"
+    t.integer "rating"
+    t.text "review"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "primary_email"
@@ -95,5 +119,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_18_163940) do
     t.index ["primary_phone_number"], name: "index_users_on_primary_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
 end
