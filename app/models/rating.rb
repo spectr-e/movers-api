@@ -1,0 +1,3 @@
+class Rating < ApplicationRecord 
+end
+  
