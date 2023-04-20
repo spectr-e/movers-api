@@ -14,18 +14,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_115633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "movers", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "logo"
-    t.string "address"
-    t.text "description"
-    t.text "services_offered"
-    t.string "availability"
-    t.boolean "deposit_req"
-    t.boolean "full_packaging"
-    t.integer "rate_per_kilometer"
-
   create_table "apartment_inventories", force: :cascade do |t|
     t.integer "apartment_size_id"
     t.integer "inventory_id"
@@ -39,6 +27,50 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_115633) do
     t.text "description"
     t.integer "labour"
     t.integer "labour_cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.string "user_id"
+    t.string "mover_id"
+    t.string "apartment_size_id"
+    t.string "rating_id"
+    t.string "box_id"
+    t.string "pickup_address"
+    t.string "destination_address"
+    t.integer "distance"
+    t.date "book_date"
+    t.time "book_time"
+    t.integer "quotation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "boxes", force: :cascade do |t|
+    t.string "range"
+    t.integer "cost_to_move_boxes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "movers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "logo"
+    t.string "address"
+    t.text "description"
+    t.text "services_offered"
+    t.string "availability"
+    t.boolean "deposit_req"
+    t.boolean "full_packaging"
+    t.integer "rate_per_kilometer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
