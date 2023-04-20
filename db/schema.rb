@@ -111,5 +111,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_115633) do
     t.index ["primary_phone_number"], name: "index_users_on_primary_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
 end
