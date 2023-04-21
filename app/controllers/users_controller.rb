@@ -9,19 +9,18 @@ class UsersController < ApplicationController
     render json: @current_user
   end
 
+  
   def create
-    @user = User.new(user_params)
-
-    if @user.save
-      jwt_token = encode(user_id: @user.id)
-      response.set_header('Authorization', "Bearer #{jwt_token}")
-      render json: { message: "Welcome #{name}!" }, status: :created
-    else
-      render json: { error: @user.errors.full_messages.join(', ') }, status: :unprocessable_entity
+   user = User.create(user_params)
+     if user.valid?
+       render json:user, status: :created
+     else
+       render json: { errors:user.errors.full_messages }, status: :unprocessable_entity
     end
-  end
+end
 
   def update
+    @current_user = find_user
     if @current_user.update(user_params)
       render json: @current_user
     else
@@ -30,6 +29,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @current_user = find_user
     @current_user.destroy
     render json: { message: 'User deleted' }
   end
@@ -40,16 +40,18 @@ class UsersController < ApplicationController
     if @user&.authenticate(params[:password])
       jwt_token = encode(user_id: @user.id)
       response.set_header('Authorization', "Bearer #{jwt_token}")
-      render json: { message: "Welcome back #{name}!" }
+      render json: @user, { message: "Welcome back #{name}!" }
     else
       render json: { error: 'Invalid email or password' }, status: :unauthorized
     end
   end
 
   private
-
+ def find_user
+  User.find_by(id: session[:user_id])
+ end
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation,:primary_phone_number,:image )
   end
 
   def encode(payload)
