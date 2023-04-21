@@ -7,15 +7,25 @@ class BookingsController < ApplicationController
   end
 
   def create
-  
     booking = Booking.new(booking_params)
-
+    
+    # Check if the associated records exist
+    unless User.exists?(id: booking_params[:user_id]) &&
+           Mover.exists?(id: booking_params[:mover_id]) &&
+           ApartmentSize.exists?(id: booking_params[:apartment_size_id]) &&
+           Rating.exists?(id: booking_params[:rating_id]) &&
+           Box.exists?(id: booking_params[:box_id])
+      render json: { errors: "One or more associated records do not exist" }, status: :unprocessable_entity
+      return
+    end
+  
     if booking.save
       render json: booking, status: :created
     else
-      render json: { errors: "unprocessebale entity" }, status: :unprocessable_entity
+      render json: { errors: "Unprocessable entity" }, status: :unprocessable_entity
     end
   end
+  
 
   def show
     render json: @booking
