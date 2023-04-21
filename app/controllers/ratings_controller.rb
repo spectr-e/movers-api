@@ -10,7 +10,8 @@ class RatingsController < ApplicationController
   end
 
   def current_user
-    
+
+
   end 
 
   def create
@@ -31,7 +32,9 @@ class RatingsController < ApplicationController
     )
 
     if rating.save
+
       render json: rating, status: :created
+
     else
       render json: { error: rating.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
@@ -42,7 +45,10 @@ class RatingsController < ApplicationController
     rating = Rating.find(params[:id])
 
     if rating.update(rating_params)
+
       render json: rating
+
+
     else
       render json: rating.errors, status: :unprocessable_entity
     end
@@ -52,7 +58,10 @@ class RatingsController < ApplicationController
     rating = Rating.find(params[:id])
     rating.destroy
 
+
     head :no_content
+
+
   end
 
   private
