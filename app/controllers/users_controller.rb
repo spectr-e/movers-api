@@ -1,70 +1,74 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authorize_request, except: [:signup, :signin]
 
-  # GET /users or /users.json
   def index
     @users = User.all
   end
 
-  # GET /users/1 or /users/1.json
   def show
+    render json: @current_user
   end
 
-  # GET /users/new
-  def new
-    @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
-  end
-
-  # POST /users or /users.json
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to user_url(@user), notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      jwt_token = encode(user_id: @user.id)
+      response.set_header('Authorization', "Bearer #{jwt_token}")
+      render json: { message: "Welcome #{name}!" }, status: :created
+    else
+      render json: { error: @user.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /users/1 or /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @current_user.update(user_params)
+      render json: @current_user
+    else
+      render json: { error: @current_user.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
   end
 
-  # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy
+    @current_user.destroy
+    render json: { message: 'User deleted' }
+  end
 
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
+  def signin
+    @user = User.find_by(email: params[:email])
+
+    if @user&.authenticate(params[:password])
+      jwt_token = encode(user_id: @user.id)
+      response.set_header('Authorization', "Bearer #{jwt_token}")
+      render json: { message: "Welcome back #{name}!" }
+    else
+      render json: { error: 'Invalid email or password' }, status: :unauthorized
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:name, :primary_email, :secondary_email, :primary_phone_number, :secondary_phone_number, :image, :password_digest)
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def encode(payload)
+    JWT.encode(payload, Rails.application.secret_key_base)
+  end
+
+  def decode(token)
+    JWT.decode(token, Rails.application.secret_key_base)[0]
+  end
+
+  def authorize_request
+    header = request.headers['Authorization']
+    header = header.split(' ').last if header
+
+    begin
+      decoded = decode(header)
+      @current_user = User.find(decoded['user_id'])
+    rescue JWT::DecodeError
+      render json: { error: 'Invalid token' }, status: :unauthorized
     end
+  end
 end
