@@ -70,6 +70,8 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-#Devise gem for user authentification
-gem 'devise'
-gem 'warden'
+
+gem 'jwt'
+
+
+gem 'rack-cors', require: 'rack/cors'
