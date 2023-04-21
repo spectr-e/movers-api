@@ -31,22 +31,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_115633) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "primary_phone_number"
-    t.string "secondary_phone_number"
-    t.string "image"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.string "email"
-    t.index ["primary_phone_number"], name: "index_users_on_primary_phone_number", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
   create_table "bookings", force: :cascade do |t|
     t.string "user_id"
     t.string "mover_id"
@@ -101,22 +85,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_115633) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "primary_email"
-    t.string "secondary_email"
     t.string "primary_phone_number"
     t.string "secondary_phone_number"
     t.string "image"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["primary_email"], name: "index_users_on_primary_email", unique: true
+    t.string "email"
     t.index ["primary_phone_number"], name: "index_users_on_primary_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
 end

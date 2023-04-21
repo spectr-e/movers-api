@@ -1,6 +1,5 @@
 class RatingsController < ApplicationController
   def index
-    byebug
     ratings = Rating.all
     render json: ratings
   end
