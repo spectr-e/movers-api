@@ -5,11 +5,15 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-Box.create(range: "1-10", cost_to_move_boxes: 5000)
-Box.create(range: "11-20", cost_to_move_boxes: 7000)
-Box.create(range: "20-30", cost_to_move_boxes: 12000)
-Box.create(range: "30-50", cost_to_move_boxes: 20000)
+Box.create(range: "1-5", cost_to_move_boxes: 5000)
+Box.create(range: "6-10", cost_to_move_boxes: 7000)
+Box.create(range: "11-15", cost_to_move_boxes: 9000)
+Box.create(range: "16-20", cost_to_move_boxes: 12000)
+Box.create(range: "21-30", cost_to_move_boxes: 16000)
+Box.create(range: "31-40", cost_to_move_boxes: 20000)
+Box.create(range: "41-50", cost_to_move_boxes: 2500)
 Box.create(range: "50+", cost_to_move_boxes: 30000)
+
 
 # Create apartment sizes with labour & cost
 ApartmentSize.create(size: 'bedsitter', description: 'A small living space that includes boxed and bag items and a bed', labour: '1', labour_cost: 10000)
