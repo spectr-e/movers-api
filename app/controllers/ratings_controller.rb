@@ -15,6 +15,7 @@ class RatingsController < ApplicationController
   end 
 
   def create
+
     # Find the booking
     booking = Booking.find_by(id: params[:booking_id])
 

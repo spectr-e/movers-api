@@ -24,8 +24,9 @@ default: &default
 development:
   <<: *default
   database: movers_api_development
-  username: <%= ENV['APPNAME_DATABASE_USERNAME'] %>
-  password: <%= ENV['APPNAME_DATABASE_PASSWORD'] %>
+
+  username: <%= ENV['APPNAME_DATABASE_USERNAME']%>
+  password: <%= ENV['APPNAME_DATABASE_PASSWORD']%>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

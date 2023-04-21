@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+
+  protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token, if: -> { request.format.json? }
+
 
   def authenticate_user!
     token = request.headers['Authorization']&.split&.last
@@ -10,4 +13,5 @@ class ApplicationController < ActionController::Base
       render json: { error: 'Unauthorized' }, status: :unauthorized
     end
   end
+
 end
