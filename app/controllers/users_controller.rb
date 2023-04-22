@@ -1,14 +1,15 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy ]
   before_action :authorize_request, except: [:signup, :signin]
 
   def index
     @users = User.all
   end
-
+  
   def show
     render json: @current_user
   end
-
   
   def create
    user = User.create(user_params)
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
      else
        render json: { errors:user.errors.full_messages }, status: :unprocessable_entity
     end
-end
+  end
 
   def update
     @current_user = find_user
@@ -34,24 +35,17 @@ end
     render json: { message: 'User deleted' }
   end
 
-  def signin
-    @user = User.find_by(email: params[:email])
-
-    if @user&.authenticate(params[:password])
-      jwt_token = encode(user_id: @user.id)
-      response.set_header('Authorization', "Bearer #{jwt_token}")
-      render json: @user, { message: "Welcome back #{name}!" }
-    else
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
-    end
+private
+  def find_user
+    User.find_by(id: session[:user_id])
   end
 
-  private
- def find_user
-  User.find_by(id: session[:user_id])
- end
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation,:primary_phone_number,:image )
+    params.require(:user).permit(:name, :primary_email, :secondary_email, :primary_phone_number, :secondary_phone_number, :image, :password_digest)
   end
 
   def encode(payload)
@@ -65,7 +59,6 @@ end
   def authorize_request
     header = request.headers['Authorization']
     header = header.split(' ').last if header
-
     begin
       decoded = decode(header)
       @current_user = User.find(decoded['user_id'])

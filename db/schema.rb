@@ -31,6 +31,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_21_155347) do
     t.datetime "updated_at", null: false
   end
 
+
+
   create_table "authorize_api_requests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -40,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_21_155347) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
 
   create_table "bookings", force: :cascade do |t|
     t.string "user_id"
@@ -81,6 +84,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_21_155347) do
     t.boolean "deposit_req"
     t.boolean "full_packaging"
     t.integer "rate_per_kilometer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer "booking_id"
+    t.integer "rating"
+    t.text "review"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
