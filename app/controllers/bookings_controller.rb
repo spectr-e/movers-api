@@ -44,6 +44,12 @@ class BookingsController < ApplicationController
     head :no_content
   end
 
+  def calculate_quotation(cost_to_move_boxes, labour_costs, distance, rate_per_km)
+    quotation = cost_to_move_boxes + labour_costs + (distance * rate_per_km)
+    return quotation
+  end
+  
+
   private
 
   def set_booking
