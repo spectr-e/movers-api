@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :ratings, only: [:index, :create, :show, :update, :destroy]
   
   resources :bookings, only: [:index, :create, :show, :update, :destroy]
+  get '/quotation/:cost_to_move_boxes/:labour_costs/:distance/:rate_per_km', to: 'my_controller#calculate_quotation'
+
 end
