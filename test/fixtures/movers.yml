@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  email: MyString
+  logo: MyString
+  address: MyString
+  description: MyText
+  services_offered: MyText
+  availability: MyString
+  deposit_req: false
+  full_packaging: false
+  rate_per_kilometer: 1
+
+two:
+  name: MyString
+  email: MyString
+  logo: MyString
+  address: MyString
+  description: MyText
+  services_offered: MyText
+  availability: MyString
+  deposit_req: false
+  full_packaging: false
+  rate_per_kilometer: 1
