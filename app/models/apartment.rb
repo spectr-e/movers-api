@@ -1,9 +1,10 @@
-class ApartmentSize < ApplicationRecord
+class Apartment < ApplicationRecord
     has_many :apartment_inventories
     has_many :inventories, through: :apartment_inventories
 
     validates :size, presence: true
 
+    # By using #freeze, I'm able to create a constant that's actually constant. This time, when I attempt to modify the string, I get a RuntimeError.
     LABOUR_COST = {
         "bedsitter" => 10000,
         "1 bedroom" => 15000,
@@ -17,6 +18,4 @@ class ApartmentSize < ApplicationRecord
         "studio" => 2,
         "2 bedroom" => 4
     }.freeze
-    # validates :labour, presence: true, numericality: { only_integer: true }
-    # validates :labour_cost, presence: true, numericality: { only_integer: true }
 end

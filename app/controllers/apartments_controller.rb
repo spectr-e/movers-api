@@ -1,4 +1,4 @@
-class ApartmentSizesController < ApplicationController
+class ApartmentsController < ApplicationController
     before_action :set_apartment_size, only: [:show, :edit, :update, :destroy]
 
     def index
