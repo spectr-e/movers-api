@@ -1,2 +1,5 @@
 class Booking < ApplicationRecord
+  belongs_to :user
+  belongs_to :mover
+  belongs_to :apartment
 end
