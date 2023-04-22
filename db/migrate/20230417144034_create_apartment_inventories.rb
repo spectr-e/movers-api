@@ -3,7 +3,7 @@ class CreateApartmentInventories < ActiveRecord::Migration[7.0]
     create_table :apartment_inventories do |t|
       t.integer :apartment, null: false, foreign_key: true
       t.integer :inventory, null: false, foreign_key: true
-      t.string :quantity
+      t.integer :quantity
 
       t.timestamps
     end

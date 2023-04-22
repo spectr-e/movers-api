@@ -6,11 +6,11 @@ class CreateMovers < ActiveRecord::Migration[7.0]
       t.string :logo
       t.string :address
       t.text :description
-      t.text :services_offered
-      t.string :availability
-      t.boolean :deposit_req
-      t.boolean :full_packaging
-      t.integer :rate_per_kilometer
+      t.text :services
+      t.string :availability, default: "Excellent"
+      t.boolean :deposit
+      t.boolean :packaging
+      t.integer :rate_per_km
 
       t.timestamps
     end
