@@ -73,3 +73,5 @@ group :test do
 end
 #Devise gem for user authentification
 gem 'devise'
+
+gem 'httparty'
