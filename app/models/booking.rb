@@ -17,7 +17,5 @@ class Booking < ApplicationRecord
         all
       end
     end
-  end
- 
 end
 
