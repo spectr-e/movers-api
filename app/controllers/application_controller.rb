@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def encode_token(pay)
     # should store secret in env variable
-    pay[:exp] = Time.now.to_i + 900
+    # pay[:exp] = Time.now.to_i + 3000
     JWT.encode(pay, "secret")
   end
 

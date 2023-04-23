@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :bookings, only: %i[index create show update destroy]
 
   post "/login", to: "sessions#create"
-  get "/profile", to: "user#show"
+  get "/profile", to: "users#show"
 
   root to: redirect("/healthcheck", status: 302)
   get "/healthcheck", to: proc { [200, {}, ["success"]] }
