@@ -3,9 +3,8 @@ Rails.application.routes.draw do
   resources :boxes
   resources :apartment_inventories
   resources :movers
-  resources :apartment_sizes
+  resources :apartments
   resources :inventories
-  resources :users, only: %i[index show create update destroy]
   resources :ratings, only: %i[index create show update destroy]
   resources :bookings, only: %i[index create show update destroy]
   

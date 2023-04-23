@@ -4,4 +4,6 @@ class User < ApplicationRecord
   has_many :apartments, through: :bookings
   has_many :apartment_inventories, through: :apartments
   has_many :inventories, through: :apartment_inventories
+
+  has_secure_password
 end
