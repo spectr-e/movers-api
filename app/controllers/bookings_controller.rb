@@ -19,6 +19,11 @@ class BookingsController < ApplicationController
       render json: { errors: "One or more associated records do not exist" }, status: :unprocessable_entity
       return
     end
+
+    # Calculate the distance between the pickup and destination addresses
+  pickup_location = Geocoder.search(booking_params[:pickup_address]).first
+  destination_location = Geocoder.search(booking_params[:destination_address]).first
+  distance = pickup_location.distance_to(destination_location, units: :km)
   
     if booking.save
       render json: booking, status: :created
