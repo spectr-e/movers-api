@@ -1,6 +1,7 @@
 class Inventory < ApplicationRecord
-    #associations
+    validates :name, presence: true, uniqueness: true
     has_many :apartment_inventories
+
 
     #validations
     validates :name, presence: true
@@ -13,3 +14,6 @@ class Inventory < ApplicationRecord
         end
       end
     end
+
+
+

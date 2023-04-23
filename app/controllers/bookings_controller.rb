@@ -2,19 +2,31 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :update, :destroy]
 
   def index
+    byebug
     bookings = Booking.all
     render json: bookings
   end
 
   def create
     booking = Booking.new(booking_params)
-
+    
+    # Check if the associated records exist
+    unless User.exists?(id: booking_params[:user_id]) &&
+           Mover.exists?(id: booking_params[:mover_id]) &&
+           ApartmentSize.exists?(id: booking_params[:apartment_size_id]) &&
+           Rating.exists?(id: booking_params[:rating_id]) &&
+           Box.exists?(id: booking_params[:box_id])
+      render json: { errors: "One or more associated records do not exist" }, status: :unprocessable_entity
+      return
+    end
+  
     if booking.save
       render json: booking, status: :created
     else
-      render json: { errors: "unprocessebale entity" }, status: :unprocessable_entity
+      render json: { errors: "Unprocessable entity" }, status: :unprocessable_entity
     end
   end
+  
 
   def show
     render json: @booking
@@ -32,6 +44,12 @@ class BookingsController < ApplicationController
     @booking.destroy
     head :no_content
   end
+
+  def calculate_quotation(cost_to_move_boxes, labour_costs, distance, rate_per_km)
+    quotation = cost_to_move_boxes + labour_costs + (distance * rate_per_km)
+    return quotation
+  end
+  
 
   private
 

@@ -1,5 +1,6 @@
 class InventoriesController < ApplicationController
 
+
     def index
         if params[:query].present?
           @inventories = Inventory.search(params[:query]).pluck(:name)
@@ -53,4 +54,6 @@ class InventoriesController < ApplicationController
     def inventory_params
       params.require(:inventory).permit(:name)
     end
+
+
 end
