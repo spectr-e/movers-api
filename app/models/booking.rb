@@ -1,7 +1,7 @@
 class Booking < ApplicationRecord
     belongs_to :user
     belongs_to :mover
-    belongs_to :apartment_size
+    belongs_to :apartment
     belongs_to :rating
     belongs_to :box
   
@@ -19,3 +19,5 @@ class Booking < ApplicationRecord
     end
   end
   
+end
+
