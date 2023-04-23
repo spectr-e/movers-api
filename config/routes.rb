@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :users
-  resources :users
+  resources :users, only: %i[index create update destory]
   resources :boxes
   resources :apartment_inventories
-  resources :apartment_sizes
+  resources :movers
+  resources :apartments
   resources :inventories
-  root to: redirect('/healthcheck', status: 302)
+  resources :ratings, only: %i[index create show update destroy]
+  resources :bookings, only: %i[index create show update destroy]
+
+  post "/login", to: "sessions#create"
+  get "/profile", to: "users#show"
+
+  root to: redirect("/healthcheck", status: 302)
   get "/healthcheck", to: proc { [200, {}, ["success"]] }
-  resources :ratings, only: [:index, :create, :show, :update, :destroy]
-  
-  resources :bookings, only: [:index, :create, :show, :update, :destroy]
+  get '/quotation/:cost_to_move_boxes/:labour_costs/:distance/:rate_per_km', to: 'my_controller#calculate_quotation'
 end
