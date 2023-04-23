@@ -24,6 +24,11 @@ default: &default
 development:
   <<: *default
   database: movers_api_development
+<<<<<<< HEAD
+=======
+  username: <%= ENV['APPNAME_DATABASE_USERNAME']%>
+  password: <%= ENV['APPNAME_DATABASE_PASSWORD']%>
+>>>>>>> a8b3c1d (1. Unstaged changes)
 
   username: <%= ENV['APPNAME_DATABASE_USERNAME']%>
   password: <%= ENV['APPNAME_DATABASE_PASSWORD']%>
