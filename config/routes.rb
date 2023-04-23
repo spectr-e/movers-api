@@ -13,4 +13,5 @@ Rails.application.routes.draw do
 
   root to: redirect("/healthcheck", status: 302)
   get "/healthcheck", to: proc { [200, {}, ["success"]] }
+  get '/quotation/:cost_to_move_boxes/:labour_costs/:distance/:rate_per_km', to: 'my_controller#calculate_quotation'
 end
