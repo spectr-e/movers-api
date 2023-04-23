@@ -2,6 +2,7 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :update, :destroy]
 
   def index
+    byebug
     bookings = Booking.all
     render json: bookings
   end
