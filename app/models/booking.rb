@@ -17,5 +17,7 @@ class Booking < ApplicationRecord
         all
       end
     end
+    geocoded_by :distance
+    after_validation :geocode
 end
 
