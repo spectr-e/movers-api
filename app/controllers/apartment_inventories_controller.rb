@@ -39,6 +39,6 @@ class ApartmentInventoriesController < ApplicationController
     end
 
     def apartment_inventory_params
-      params.require(:apartment_inventory).permit(:apartment_id, :inventory_id, :quantity)
+      params.permit(:apartment_id, :inventory_id, :quantity)
     end
 end

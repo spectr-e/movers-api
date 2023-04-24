@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_24_090323) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_18_135712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "apartment_inventories", force: :cascade do |t|
+    t.bigint "apartment_id", null: false
+    t.bigint "inventory_id", null: false
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "apartment_id"
-    t.integer "inventory_id"
     t.index ["apartment_id"], name: "index_apartment_inventories_on_apartment_id"
     t.index ["inventory_id"], name: "index_apartment_inventories_on_inventory_id"
   end
@@ -34,22 +34,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_24_090323) do
   end
 
   create_table "bookings", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "mover_id", null: false
-    t.string "apartment", null: false
-    t.string "rating", null: false
+    t.string "user_id", null: false
+    t.string "mover_id", null: false
+    t.string "apartment_id", null: false
+    t.string "rating_id", null: false
     t.string "box_id", null: false
     t.string "pickup_address"
     t.string "destination_address"
+    t.float "latitude"
+    t.float "longitude"
     t.integer "distance"
     t.datetime "book_date"
     t.integer "quotation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "latitude"
-    t.float "longitude"
-    t.index ["mover_id"], name: "index_bookings_on_mover_id"
-    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "boxes", force: :cascade do |t|
@@ -101,7 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_24_090323) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "bookings", "movers"
-  add_foreign_key "bookings", "users"
+  add_foreign_key "apartment_inventories", "apartments"
+  add_foreign_key "apartment_inventories", "inventories"
   add_foreign_key "ratings", "bookings"
 end

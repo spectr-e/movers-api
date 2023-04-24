@@ -8,6 +8,8 @@ class CreateBookings < ActiveRecord::Migration[7.0]
       t.string :box_id, null: false, foreign_key: true
       t.string :pickup_address
       t.string :destination_address
+      t.float :latitude
+      t.float :longitude
       t.integer :distance
       t.datetime :book_date
       t.integer :quotation
