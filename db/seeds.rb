@@ -1,3 +1,5 @@
+puts "seeding..."
+
 Box.create(range: "1-5", cost_to_move_boxes: 5000)
 Box.create(range: "6-10", cost_to_move_boxes: 7000)
 Box.create(range: "11-15", cost_to_move_boxes: 9000)
@@ -82,3 +84,4 @@ Apartment.create(
   labour_cost: 18_000,
 )
 
+puts "done seeding!!!"
