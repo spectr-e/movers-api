@@ -10,9 +10,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_18_162053) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_18_135712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "apartment_inventories", force: :cascade do |t|
+    t.bigint "apartment_id", null: false
+    t.bigint "inventory_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["apartment_id"], name: "index_apartment_inventories_on_apartment_id"
+    t.index ["inventory_id"], name: "index_apartment_inventories_on_inventory_id"
+  end
+
+  create_table "apartments", force: :cascade do |t|
+    t.string "size"
+    t.text "description"
+    t.integer "labour"
+    t.integer "labour_cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "mover_id", null: false
+    t.string "apartment_id", null: false
+    t.string "rating_id", null: false
+    t.string "box_id", null: false
+    t.string "pickup_address"
+    t.string "destination_address"
+    t.float "latitude"
+    t.float "longitude"
+    t.integer "distance"
+    t.datetime "book_date"
+    t.integer "quotation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "boxes", force: :cascade do |t|
+    t.string "range"
+    t.integer "cost_to_move_boxes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "movers", force: :cascade do |t|
     t.string "name"
@@ -20,27 +69,37 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_18_162053) do
     t.string "logo"
     t.string "address"
     t.text "description"
-    t.text "services_offered"
-    t.string "availability"
-    t.boolean "deposit_req"
-    t.boolean "full_packaging"
-    t.integer "rate_per_kilometer"
+    t.text "services"
+    t.string "availability", default: "Excellent"
+    t.boolean "deposit"
+    t.boolean "packaging"
+    t.integer "rate_per_km"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.integer "rating"
+    t.text "review"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_ratings_on_booking_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "primary_email"
-    t.string "secondary_email"
-    t.string "primary_phone_number"
-    t.string "secondary_phone_number"
+    t.string "email"
+    t.string "phone", limit: 20
+    t.string "add_email"
+    t.string "add_phone", limit: 20
     t.string "image"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["primary_email"], name: "index_users_on_primary_email", unique: true
-    t.index ["primary_phone_number"], name: "index_users_on_primary_phone_number", unique: true
   end
 
+  add_foreign_key "apartment_inventories", "apartments"
+  add_foreign_key "apartment_inventories", "inventories"
+  add_foreign_key "ratings", "bookings"
 end
