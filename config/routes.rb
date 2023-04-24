@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :users, only: %i[index create update destory]
   resources :boxes
-  resources :apartment_inventories
+  resources :apartment_inventories, only: [:index, :create, :show, :update, :destroy]
   resources :movers
   resources :apartments
   resources :inventories
