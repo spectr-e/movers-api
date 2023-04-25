@@ -47,7 +47,7 @@ class MoversController < ApplicationController
   private
 
   def mover_params
-      params.require(:inventory).permit(:name)
+      params.permit(:name, :email, :logo, :address, :description, :services, :availability, :deposit, :packaging, :rate_per_km)
   end
 
 end
