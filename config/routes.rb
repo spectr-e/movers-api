@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :movers , only:[:index, :create ,:edit, :show]
+  resources :movers , only:[:index, :create ,:edit, :show, :update ,:destroy]
   resources :users, only: %i[index create update destory]
   resources :boxes
   resources :apartment_inventories, only: [:index, :create, :show, :update, :destroy]
@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   post "/login", to: "sessions#create"
   get "/profile", to: "users#show"
+  
   root to: redirect("/healthcheck", status: 302)
   get "/healthcheck", to: proc { [200, {}, ["success"]] }
   get "/quotation/:cost_to_move_boxes/:labour_costs/:distance/:rate_per_km",
