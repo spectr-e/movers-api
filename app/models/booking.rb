@@ -3,7 +3,7 @@ class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :apartment
   belongs_to :box
-  belongs_to :mover
+  belongs_to :mover, optional: true
 
   def confirmed?
     self.status == true && self.mover_id.present?

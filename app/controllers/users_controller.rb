@@ -9,13 +9,13 @@ class UsersController < ApplicationController
   def create
     user = User.create!(create_user_params)
     token = encode_token({ user_id: user.id })
-    UserMailer.with(user: current_user).welcome_user.deliver_now
-
+    
     render json: {
-             user: UserSerializer.new(user),
-             jwt: token,
-           },
-           status: :created
+      user: UserSerializer.new(user),
+      jwt: token,
+    },
+    status: :created
+    UserMailer.with(user: user).welcome_user.deliver_now
   end
 
   # User Profile
