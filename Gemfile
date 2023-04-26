@@ -47,4 +47,3 @@ gem 'jwt'
 gem 'rack-cors', require: 'rack/cors'
 
 gem "active_model_serializers", "~> 0.10.13"
-gem 'mail_interceptor', group: [:development, :staging]

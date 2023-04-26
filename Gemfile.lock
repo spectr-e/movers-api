@@ -73,8 +73,6 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
-    africastalking-ruby (2.1.8)
-      httparty (= 0.16.1)
     bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.16.0)
@@ -103,9 +101,7 @@ GEM
     geocoder (1.8.1)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    httparty (0.16.1)
-      multi_xml (>= 0.5.2)
-    i18n (1.12.0)
+    i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.6)
       actionpack (>= 6.0.0)
@@ -126,15 +122,12 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mail_interceptor (0.0.7)
-      activesupport
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.18.0)
     msgpack (1.7.0)
-    multi_xml (0.6.0)
     net-imap (0.3.4)
       date
       net-protocol
@@ -149,13 +142,13 @@ GEM
       racc (~> 1.4)
     nokogiri (1.14.3-x86_64-linux)
       racc (~> 1.4)
-    pg (1.4.6)
-    pg (1.4.6-x64-mingw-ucrt)
+    pg (1.5.2)
+    pg (1.5.2-x64-mingw-ucrt)
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.2)
-    rack (2.2.6.4)
+    rack (2.2.7)
     rack-cors (2.0.1)
       rack (>= 2.0.0)
     rack-test (2.1.0)
@@ -191,14 +184,11 @@ GEM
     reline (0.3.3)
       io-console (~> 0.5)
     rexml (3.2.5)
-    ruby_http_client (3.5.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.9.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sendgrid-ruby (6.6.2)
-      ruby_http_client (~> 3.4)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -241,7 +231,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.13)
-  africastalking-ruby
   bcrypt (~> 3.1.7)
   bootsnap
   bundler-unload (= 1.0.2)
@@ -252,13 +241,11 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jwt
-  mail_interceptor
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.4, >= 7.0.4.3)
   selenium-webdriver
-  sendgrid-ruby (~> 6.6)
   sprockets-rails
   stimulus-rails
   turbo-rails
