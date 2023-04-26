@@ -1,68 +1,60 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :update, :destroy]
-
-  def index
-    byebug
-    bookings = Booking.all
-    render json: bookings
-  end
-
   def create
-    booking = Booking.new(booking_params)
-    
-    # Check if the associated records exist
-    unless User.exists?(id: booking_params[:user_id]) &&
-           Mover.exists?(id: booking_params[:mover_id]) &&
-           ApartmentSize.exists?(id: booking_params[:apartment_size_id]) &&
-           Rating.exists?(id: booking_params[:rating_id]) &&
-           Box.exists?(id: booking_params[:box_id])
-      render json: { errors: "One or more associated records do not exist" }, status: :unprocessable_entity
-      return
-    end
-
-    # Calculate the distance between the pickup and destination addresses
-  pickup_location = Geocoder.search(booking_params[:pickup_address]).first
-  destination_location = Geocoder.search(booking_params[:destination_address]).first
-  distance = pickup_location.distance_to(destination_location, units: :km)
-  
+    booking = Booking.new(create_booking_params)
+    booking.calculate_distance
     if booking.save
-      render json: booking, status: :created
-    else
-      render json: { errors: "Unprocessable entity" }, status: :unprocessable_entity
-    end
-  end
-  
+      render json: {
+        booking: BookingSerializer.new(booking),
+        movers: generate_quotations(booking),
 
-  def show
-    render json: @booking
+      }, status: :created
+    else
+      render json: { error: booking.errors }, status: :unprocessable_entity
+    end
   end
 
   def update
-    if @booking.update(booking_params)
-      render json: @booking
-    else
-      render json: { errors: "unprocessebale entity" }, status: :unprocessable_entity
+    booking = Booking.find_by(id: params[:booking_id])
+    booking.update(update_booking_params)
+    booking.update(quotation: booking.mover.rate_per_km * booking.distance + booking.apartment.labour_cost + booking.box.cost_to_move_boxes)
+    if booking.status?
+      # send confirmation email
+      BookingMailer.with(booking: booking).confirmation_email.deliver_now
     end
-  end
 
-  def destroy
-    @booking.destroy
-    head :no_content
+    render json: booking, serializer: ConfirmBookingSerializer
   end
-
-  def calculate_quotation(cost_to_move_boxes, labour_costs, distance, rate_per_km)
-    quotation = cost_to_move_boxes + labour_costs + (distance * rate_per_km)
-    return quotation
-  end
-  
 
   private
 
-  def set_booking
-    @booking = Booking.find(params[:id])
+  def create_booking_params
+    params.permit(:user_id, :apartment_id, :box_id, :pickup_address, :destination_address, :book_date)
   end
 
-  def booking_params
-    params.permit(:user_id, :mover_id, :apartment_size_id, :rating_id, :box_id, :pickup_address, :destination_address, :distance, :book_date, :book_time, :quotation)
+  def update_booking_params
+    params.permit(:mover_id, :status)
+  end
+
+  def generate_quotations(booking)
+    movers = Mover.all
+    quotations = []
+
+    movers.each do |mover|
+      mover = {
+        id: mover.id,
+        name: mover.name,
+        email: mover.email,
+        address: mover.address,
+        logo: mover.logo,
+        description: mover.description,
+        services: mover.services,
+        availability: mover.availability,
+        deposit: mover.deposit,
+        packaging: mover.packaging,
+        quotation: booking.distance * mover.rate_per_km + booking.box.cost_to_move_boxes + booking.apartment.labour_cost,
+      }
+      quotations << mover
+    end
+    quotations
   end
 end

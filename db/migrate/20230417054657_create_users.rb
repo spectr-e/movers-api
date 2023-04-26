@@ -3,9 +3,9 @@ class CreateUsers < ActiveRecord::Migration[7.0]
     create_table :users do |t|
       t.string :name
       t.string :email
-      t.string :phone
+      t.string :phone, limit: 20
       t.string :add_email
-      t.string :add_phone
+      t.string :add_phone, limit:20
       t.string :image
       t.string :password_digest
 

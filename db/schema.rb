@@ -10,17 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_23_201638) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_18_135712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "apartment_inventories", force: :cascade do |t|
-    t.integer "apartment", null: false
-    t.integer "inventory", null: false
-    t.integer "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "apartments", force: :cascade do |t|
     t.string "size"
@@ -33,19 +25,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_23_201638) do
 
   create_table "bookings", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "mover_id", null: false
-    t.string "apartment", null: false
-    t.string "rating", null: false
-    t.string "box_id", null: false
+    t.bigint "apartment_id", null: false
+    t.bigint "mover_id"
+    t.bigint "box_id", null: false
     t.string "pickup_address"
     t.string "destination_address"
     t.integer "distance"
     t.datetime "book_date"
+    t.boolean "status", default: false
     t.integer "quotation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "latitude"
-    t.float "longitude"
+    t.index ["apartment_id"], name: "index_bookings_on_apartment_id"
+    t.index ["box_id"], name: "index_bookings_on_box_id"
     t.index ["mover_id"], name: "index_bookings_on_mover_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -79,12 +71,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_23_201638) do
   end
 
   create_table "ratings", force: :cascade do |t|
-    t.bigint "booking_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "mover_id", null: false
     t.integer "rating"
     t.text "review"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["booking_id"], name: "index_ratings_on_booking_id"
+    t.index ["mover_id"], name: "index_ratings_on_mover_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -99,7 +93,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_23_201638) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bookings", "apartments"
+  add_foreign_key "bookings", "boxes"
   add_foreign_key "bookings", "movers"
   add_foreign_key "bookings", "users"
-  add_foreign_key "ratings", "bookings"
+  add_foreign_key "ratings", "movers"
+  add_foreign_key "ratings", "users"
 end

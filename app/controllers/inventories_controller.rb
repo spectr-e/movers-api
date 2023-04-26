@@ -3,9 +3,9 @@ class InventoriesController < ApplicationController
 
     def index
         if params[:query].present?
-          @inventories = Inventory.search(params[:query]).pluck(:name)
+          @inventories = Inventory.search(params[:query])
         else
-          @inventories = Inventory.all.pluck(:name)
+          @inventories = Inventory.all
         end
         render json: @inventories
     end

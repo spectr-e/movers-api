@@ -1,2 +1,0 @@
-class ApartmentInventoriesController < ApplicationController
-end
