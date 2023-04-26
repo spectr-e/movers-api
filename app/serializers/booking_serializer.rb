@@ -3,4 +3,5 @@ class BookingSerializer < ActiveModel::Serializer
   belongs_to :apartment
   belongs_to :user
   belongs_to :box
+
 end

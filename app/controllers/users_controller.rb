@@ -3,13 +3,14 @@ class UsersController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
   def index
-    render json: User.all, status: :ok
+    render json: {message: "Acccept, check your inbox!"}, status: :accepted
   end
-
   # SignUp User
   def create
     user = User.create!(create_user_params)
     token = encode_token({ user_id: user.id })
+    UserMailer.with(user: current_user).welcome_user.deliver_now
+
     render json: {
              user: UserSerializer.new(user),
              jwt: token,
@@ -22,6 +23,9 @@ class UsersController < ApplicationController
     render json: current_user, status: :accepted
   end
 
+  # def update
+  #   user = User.update!(update_user_params)
+  # end
   private
 
   def create_user_params
@@ -31,6 +35,17 @@ class UsersController < ApplicationController
       :password,
       :password_confirmation,
       :phone,
+      :add_email,
+      :add_phone,
+      :image,
+    )
+  end
+
+  def update_user_params
+    params.permit(
+      :name,
+      :password,
+      :password_confirmation,
       :add_email,
       :add_phone,
       :image,

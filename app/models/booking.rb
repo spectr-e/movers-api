@@ -3,13 +3,13 @@ class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :apartment
   belongs_to :box
+  belongs_to :mover
 
-  # # validations
-  # validates :user_id, :mover_id, :apartment_id, :box_id, presence: true
-  # validates :pickup_address, :destination_address, presence: true
-  # validates :book_date, presence: true
+  def confirmed?
+    self.status == true && self.mover_id.present?
+  end
 
-  
+
   def calculate_distance
     pickup_location = Geocoder.search(self.pickup_address).first.coordinates
     destination_location = Geocoder.search(self.destination_address).first.coordinates
