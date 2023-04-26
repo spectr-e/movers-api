@@ -1,13 +1,13 @@
 puts "seeding..."
 
-Box.create(range: "1-5", cost_to_move_boxes: 5000)
-Box.create(range: "6-10", cost_to_move_boxes: 7000)
-Box.create(range: "11-15", cost_to_move_boxes: 9000)
-Box.create(range: "16-20", cost_to_move_boxes: 12_000)
-Box.create(range: "21-30", cost_to_move_boxes: 16_000)
-Box.create(range: "31-40", cost_to_move_boxes: 20_000)
-Box.create(range: "41-50", cost_to_move_boxes: 2500)
-Box.create(range: "50+", cost_to_move_boxes: 30_000)
+Box.create(range: "1-5", cost_to_move_boxes: 1000)
+Box.create(range: "6-10", cost_to_move_boxes: 2000)
+Box.create(range: "11-15", cost_to_move_boxes: 4000)
+Box.create(range: "16-20", cost_to_move_boxes: 7000)
+Box.create(range: "21-30", cost_to_move_boxes: 11000)
+Box.create(range: "31-40", cost_to_move_boxes: 15000)
+Box.create(range: "41-50", cost_to_move_boxes: 18000)
+Box.create(range: "50+", cost_to_move_boxes: 25000)
 
 
 
@@ -56,32 +56,32 @@ household_items = [
 Inventory.create(household_items)
 
 Apartment.create(
-  size: "bedsitter",
+  size: "Bed Sitter",
   description:
     "A small living space that includes boxed and bag items and a bed",
   labour: "1",
-  labour_cost: 10_000,
+  labour_cost: 2000,
 )
 Apartment.create(
-  size: "1 bedroom",
+  size: "Studio",
   description:
-    "1 bedroom property that includes boxed and bag items and multiple items of furniture",
+  "A move with boxes, bags and limited furniture. For example, a bed, wardrobe and kitchenette ",
   labour: "2",
-  labour_cost: 15_000,
+  labour_cost: 5000,
 )
 Apartment.create(
-  size: "studio",
+  size: "One (1) Bedroom",
   description:
-    "A move with boxes, bags and limited furniture. For example, a bed, wardrobe and kitchenette ",
+    "A one bedroom property that includes boxed and bag items and multiple items of furniture",
   labour: "2",
-  labour_cost: 15_000,
+  labour_cost: 3000,
 )
 Apartment.create(
-  size: "2 bedroom",
+  size: "Two (2) Bedroom",
   description:
-    "2 bedroom property that includes boxed and bag items and multiple items of furniture",
+    "A two bedroom property that includes boxed and bag items and multiple items of furniture",
   labour: "4",
-  labour_cost: 18_000,
+  labour_cost: 7000,
 )
 
 
@@ -96,7 +96,7 @@ Mover.create(
     availability: "Excellent",
     deposit: false,
     packaging: true,
-    rate_per_km: 500    
+    rate_per_km: 300    
   },
   {
     name: "JK Moving",
@@ -108,7 +108,7 @@ Mover.create(
     availability: "Excellent",
     deposit: false,
     packaging: true,
-    rate_per_km: 550    
+    rate_per_km: 350    
   },
   {
     name: "Atlas Van Lines",
@@ -120,7 +120,7 @@ Mover.create(
     availability: "Excellent",
     deposit: false,
     packaging: true,
-    rate_per_km: 500    
+    rate_per_km: 400    
   },
   {
     name: "Allied Van Lines",
@@ -132,7 +132,7 @@ Mover.create(
     availability: "Excellent",
     deposit: false,
     packaging: true,
-    rate_per_km: 450    
+    rate_per_km: 300    
   },
   {
     name: "Mayflower Transit",
@@ -144,19 +144,19 @@ Mover.create(
     availability: "Excellent",
     deposit: false,
     packaging: true,
-    rate_per_km: 750    
+    rate_per_km: 250    
   },
   {
     name: "Shift Online",
-    email: "info@mayflower.com",
+    email: "info@shiftonline.com",
     address: "Nairobi, Kenya",
-    logo: "https://www.mayflower.com/wp-content/themes/uni-mayflower/dist/images/logo--full-color.svg",
+    logo: "https://s3.eu-west-2.amazonaws.com/shift-cockpit/cockpit/storage/uploads/2021/11/16/619378024f019shift-logo.svg",
     description: "Here at Shift we move things. We use a set of algorithms which allows you to move your things anywhere in the NK (Nairobi, Kenya), anytime you like.",
     services: "Full-service packing, Access to personal move consultant, Shipment tracking, Two moving insurance options, Vehicle and specialty shipping, Long and short-term storage, Moving supplies",
     availability: "Excellent",
     deposit: false,
     packaging: true,
-    rate_per_km: 600    
+    rate_per_km: 400    
   },
 
   ]

@@ -40,7 +40,8 @@ class BookingsController < ApplicationController
     quotations = []
 
     movers.each do |mover|
-      quotation = {
+      mover = {
+        id: mover.id,
         name: mover.name,
         email: mover.email,
         address: mover.address,
@@ -52,7 +53,7 @@ class BookingsController < ApplicationController
         packaging: mover.packaging,
         quotation: booking.distance * mover.rate_per_km + booking.box.cost_to_move_boxes + booking.apartment.labour_cost,
       }
-      quotations << quotation
+      quotations << mover
     end
     quotations
   end

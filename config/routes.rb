@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[index create update destroy]
   resources :boxes, only: [:index]
   resources :apartments
-  # resources :inventories
+  resources :inventories
   # resources :ratings, only: %i[index]
   resources :bookings, only: %i[create]
   patch "/bookings", to: "bookings#update"
