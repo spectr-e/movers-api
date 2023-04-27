@@ -26,7 +26,7 @@
 -Only the user who created a moving job can edit or delete it
 
 ## Database design
-![DatabaseDesign](/public/images/Dabase_design.png)
+![DatabaseDesign](/images/Dabase_design.png)
 
 
 ## Installation
